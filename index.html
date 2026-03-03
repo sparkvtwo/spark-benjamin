@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Spark Benjamin — AI Finance Agent</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: 'Inter', sans-serif; background: #0a0a0f; color: #e8e8f0; line-height: 1.6; }
+
+    /* NAV */
+    nav { display: flex; justify-content: space-between; align-items: center; padding: 20px 60px; border-bottom: 1px solid rgba(255,255,255,0.07); }
+    .logo { font-size: 1.3rem; font-weight: 700; background: linear-gradient(90deg, #7c6fff, #a78bfa); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+    nav a { color: #aaa; text-decoration: none; font-size: 0.9rem; margin-left: 28px; transition: color 0.2s; }
+    nav a:hover { color: #fff; }
+
+    /* HERO */
+    .hero { text-align: center; padding: 110px 20px 80px; }
+    .badge { display: inline-block; background: rgba(124,111,255,0.15); border: 1px solid rgba(124,111,255,0.35); color: #a78bfa; padding: 6px 16px; border-radius: 100px; font-size: 0.8rem; font-weight: 500; margin-bottom: 28px; letter-spacing: 0.04em; }
+    .hero h1 { font-size: clamp(2.4rem, 5vw, 4rem); font-weight: 700; line-height: 1.15; max-width: 780px; margin: 0 auto 24px; }
+    .hero h1 span { background: linear-gradient(135deg, #7c6fff, #c4b5fd); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+    .hero p { font-size: 1.15rem; color: #9999bb; max-width: 560px; margin: 0 auto 40px; }
+    .cta-row { display: flex; justify-content: center; gap: 14px; flex-wrap: wrap; }
+    .btn-primary { background: linear-gradient(135deg, #7c6fff, #a78bfa); color: #fff; padding: 13px 28px; border-radius: 8px; text-decoration: none; font-weight: 600; font-size: 0.95rem; transition: opacity 0.2s; }
+    .btn-primary:hover { opacity: 0.85; }
+    .btn-ghost { border: 1px solid rgba(255,255,255,0.18); color: #ccc; padding: 13px 28px; border-radius: 8px; text-decoration: none; font-weight: 500; font-size: 0.95rem; transition: border-color 0.2s; }
+    .btn-ghost:hover { border-color: rgba(255,255,255,0.4); color: #fff; }
+
+    /* FEATURES */
+    .features { padding: 80px 60px; max-width: 1100px; margin: 0 auto; }
+    .section-label { text-align: center; color: #7c6fff; font-size: 0.82rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 14px; }
+    .section-title { text-align: center; font-size: clamp(1.6rem, 3vw, 2.2rem); font-weight: 700; margin-bottom: 56px; }
+    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 24px; }
+    .card { background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08); border-radius: 14px; padding: 32px; transition: border-color 0.2s; }
+    .card:hover { border-color: rgba(124,111,255,0.4); }
+    .card-icon { font-size: 1.8rem; margin-bottom: 16px; }
+    .card h3 { font-size: 1.05rem; font-weight: 600; margin-bottom: 10px; }
+    .card p { color: #8888aa; font-size: 0.9rem; line-height: 1.65; }
+
+    /* HOW IT WORKS */
+    .how { background: rgba(124,111,255,0.04); border-top: 1px solid rgba(255,255,255,0.06); border-bottom: 1px solid rgba(255,255,255,0.06); padding: 80px 60px; }
+    .steps { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 36px; max-width: 900px; margin: 0 auto; }
+    .step { text-align: center; }
+    .step-num { width: 44px; height: 44px; border-radius: 50%; background: linear-gradient(135deg, #7c6fff, #a78bfa); display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 1rem; margin: 0 auto 16px; }
+    .step h4 { font-size: 0.95rem; font-weight: 600; margin-bottom: 8px; }
+    .step p { font-size: 0.85rem; color: #8888aa; }
+
+    /* FOOTER */
+    footer { text-align: center; padding: 40px 20px; color: #555577; font-size: 0.83rem; border-top: 1px solid rgba(255,255,255,0.06); }
+    footer a { color: #7c6fff; text-decoration: none; margin: 0 10px; }
+    footer a:hover { text-decoration: underline; }
+  </style>
+</head>
+<body>
+
+<nav>
+  <div class="logo">✦ Spark Benjamin</div>
+  <div>
+    <a href="#features">Features</a>
+    <a href="#how">How it works</a>
+    <a href="eula.html">EULA</a>
+    <a href="privacy.html">Privacy</a>
+  </div>
+</nav>
+
+<section class="hero">
+  <div class="badge">Powered by AI · QuickBooks Connected</div>
+  <h1>Your AI agent for <span>finance & expense management</span></h1>
+  <p>Spark Benjamin connects to QuickBooks to automatically track software licenses, categorize expenses, and give you a clear picture of what you're spending.</p>
+  <div class="cta-row">
+    <a href="#how" class="btn-primary">See how it works</a>
+    <a href="mailto:chris@vtwo.co" class="btn-ghost">Get in touch</a>
+  </div>
+</section>
+
+<section class="features" id="features">
+  <div class="section-label">Capabilities</div>
+  <div class="section-title">Everything you need to manage expenses</div>
+  <div class="grid">
+    <div class="card">
+      <div class="card-icon">🔌</div>
+      <h3>QuickBooks Integration</h3>
+      <p>Connect your QuickBooks account in one click. Spark automatically pulls your expense transactions and keeps them in sync.</p>
+    </div>
+    <div class="card">
+      <div class="card-icon">📊</div>
+      <h3>License Tracking</h3>
+      <p>Automatically identify software subscriptions across your transactions. Know exactly what you're paying for, and when it renews.</p>
+    </div>
+    <div class="card">
+      <div class="card-icon">💬</div>
+      <h3>Conversational Reports</h3>
+      <p>Ask Spark anything — "What are we spending on SaaS tools?" or "What renews next month?" — and get instant, clear answers.</p>
+    </div>
+    <div class="card">
+      <div class="card-icon">🔔</div>
+      <h3>Renewal Alerts</h3>
+      <p>Never get surprised by a renewal again. Spark flags upcoming renewals so you can decide whether to keep, cancel, or renegotiate.</p>
+    </div>
+    <div class="card">
+      <div class="card-icon">📁</div>
+      <h3>Expense Categorization</h3>
+      <p>Transactions automatically categorized by type — Dev Tools, Infrastructure, Productivity, AI, and more.</p>
+    </div>
+    <div class="card">
+      <div class="card-icon">🛡️</div>
+      <h3>Secure by Design</h3>
+      <p>OAuth2 authorization means your credentials are never stored. You can revoke access at any time from your QuickBooks account.</p>
+    </div>
+  </div>
+</section>
+
+<section class="how" id="how">
+  <div class="section-label">Getting Started</div>
+  <div class="section-title">Up and running in minutes</div>
+  <div class="steps">
+    <div class="step">
+      <div class="step-num">1</div>
+      <h4>Connect QuickBooks</h4>
+      <p>Authorize Spark to read your expense data using secure OAuth2. No passwords stored.</p>
+    </div>
+    <div class="step">
+      <div class="step-num">2</div>
+      <h4>Spark analyzes your data</h4>
+      <p>Spark scans your transactions and automatically identifies software licenses and subscriptions.</p>
+    </div>
+    <div class="step">
+      <div class="step-num">3</div>
+      <h4>Ask questions, get answers</h4>
+      <p>Chat with Spark to get reports, set renewal alerts, and manage your software spend — all in plain English.</p>
+    </div>
+    <div class="step">
+      <div class="step-num">4</div>
+      <h4>Stay in control</h4>
+      <p>Get proactive alerts and monthly summaries so nothing slips through the cracks.</p>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <p>© 2026 v.two · <a href="https://vtwo.co">vtwo.co</a> · <a href="eula.html">EULA</a> · <a href="privacy.html">Privacy Policy</a> · <a href="mailto:chris@vtwo.co">chris@vtwo.co</a></p>
+</footer>
+
+</body>
+</html>
