@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dashboard Preview — Spark Benjamin</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: 'Inter', sans-serif; background: #0d0d14; color: #e8e8f0; line-height: 1.5; }
+    nav { display: flex; justify-content: space-between; align-items: center; padding: 18px 48px; border-bottom: 1px solid rgba(255,255,255,0.07); }
+    .logo { font-size: 1.2rem; font-weight: 700; background: linear-gradient(90deg,#7c6fff,#a78bfa); -webkit-background-clip:text; -webkit-text-fill-color:transparent; text-decoration:none; }
+    nav a { color:#aaa; text-decoration:none; font-size:0.88rem; margin-left:24px; }
+    nav a:hover { color:#fff; }
+    .preview-banner { background: linear-gradient(135deg, rgba(124,111,255,0.15), rgba(167,139,250,0.1)); border-bottom: 1px solid rgba(124,111,255,0.2); padding: 12px 48px; display: flex; align-items: center; gap: 10px; }
+    .preview-banner span { font-size: 0.82rem; color: #a78bfa; }
+    .preview-banner .badge { background: rgba(124,111,255,0.25); border: 1px solid rgba(124,111,255,0.4); color: #c4b5fd; padding: 2px 10px; border-radius: 100px; font-size: 0.75rem; font-weight: 600; }
+    .cta-link { margin-left: auto; background: linear-gradient(135deg,#7c6fff,#a78bfa); color:#fff; padding:7px 18px; border-radius:6px; text-decoration:none; font-size:0.82rem; font-weight:600; }
+
+    /* Dashboard layout */
+    .dash { display: flex; min-height: calc(100vh - 100px); }
+    .sidebar { width: 220px; min-width: 220px; background: rgba(255,255,255,0.03); border-right: 1px solid rgba(255,255,255,0.07); padding: 24px 0; }
+    .sidebar-section { padding: 0 16px; margin-bottom: 8px; }
+    .sidebar-label { font-size: 0.7rem; font-weight: 600; color: #555577; letter-spacing: 0.08em; text-transform: uppercase; padding: 8px 12px 4px; }
+    .sidebar-item { display: flex; align-items: center; gap: 10px; padding: 9px 12px; border-radius: 8px; font-size: 0.85rem; color: #8888aa; cursor: pointer; transition: all 0.15s; margin-bottom: 2px; }
+    .sidebar-item:hover { background: rgba(255,255,255,0.05); color: #ddd; }
+    .sidebar-item.active { background: rgba(124,111,255,0.15); color: #a78bfa; font-weight: 500; }
+    .sidebar-item .icon { font-size: 1rem; width: 20px; text-align: center; }
+    .main { flex: 1; padding: 32px 40px; overflow: auto; }
+
+    /* Stats row */
+    .stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-bottom: 28px; }
+    .stat-card { background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08); border-radius: 12px; padding: 20px 24px; }
+    .stat-label { font-size: 0.75rem; color: #666688; font-weight: 500; text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 8px; }
+    .stat-value { font-size: 1.8rem; font-weight: 700; }
+    .stat-sub { font-size: 0.78rem; color: #666688; margin-top: 4px; }
+    .stat-card.highlight { border-color: rgba(124,111,255,0.3); background: rgba(124,111,255,0.08); }
+    .stat-value.purple { background: linear-gradient(135deg,#7c6fff,#c4b5fd); -webkit-background-clip:text; -webkit-text-fill-color:transparent; }
+
+    /* Alerts */
+    .alerts { display: flex; gap: 12px; margin-bottom: 28px; flex-wrap: wrap; }
+    .alert { background: rgba(251,191,36,0.08); border: 1px solid rgba(251,191,36,0.25); border-radius: 8px; padding: 10px 16px; font-size: 0.82rem; color: #fbbf24; display: flex; align-items: center; gap: 8px; }
+    .alert.red { background: rgba(239,68,68,0.08); border-color: rgba(239,68,68,0.25); color: #f87171; }
+
+    /* Table */
+    .section-title { font-size: 1rem; font-weight: 600; margin-bottom: 16px; display: flex; align-items: center; justify-content: space-between; }
+    .section-title span { font-size: 0.78rem; color: #666688; font-weight: 400; }
+    table { width: 100%; border-collapse: collapse; font-size: 0.84rem; }
+    th { text-align: left; padding: 10px 14px; color: #555577; font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.06em; font-weight: 600; border-bottom: 1px solid rgba(255,255,255,0.07); }
+    td { padding: 12px 14px; border-bottom: 1px solid rgba(255,255,255,0.04); color: #ccccdd; }
+    tr:hover td { background: rgba(255,255,255,0.02); }
+    .badge { display: inline-block; padding: 2px 10px; border-radius: 100px; font-size: 0.72rem; font-weight: 600; }
+    .badge.active { background: rgba(34,197,94,0.15); color: #4ade80; }
+    .badge.review { background: rgba(251,191,36,0.15); color: #fbbf24; }
+    .badge.cat { background: rgba(124,111,255,0.15); color: #a78bfa; }
+    .amount { font-weight: 600; color: #e8e8f0; }
+    .flag { font-size: 0.75rem; color: #f87171; margin-top: 2px; }
+
+    footer { text-align:center; padding:28px; color:#555577; font-size:0.82rem; border-top:1px solid rgba(255,255,255,0.06); }
+    footer a { color:#7c6fff; text-decoration:none; margin:0 8px; }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="logo">✦ Spark Benjamin</a>
+  <div>
+    <a href="index.html">Home</a>
+    <a href="dashboard-preview.html">Dashboard Preview</a>
+    <a href="eula.html">EULA</a>
+    <a href="privacy.html">Privacy</a>
+  </div>
+</nav>
+
+<div class="preview-banner">
+  <span class="badge">PREVIEW</span>
+  <span>This is a sample dashboard with demo data. The live dashboard is protected by Microsoft SSO.</span>
+  <a href="mailto:chris@vtwo.co" class="cta-link">Request Access →</a>
+</div>
+
+<div class="dash">
+  <!-- Sidebar -->
+  <div class="sidebar">
+    <div class="sidebar-label">Overview</div>
+    <div class="sidebar-section">
+      <div class="sidebar-item active"><span class="icon">📊</span> Dashboard</div>
+      <div class="sidebar-item"><span class="icon">🗂️</span> All Licenses</div>
+      <div class="sidebar-item"><span class="icon">🔔</span> Renewals <span style="margin-left:auto;background:rgba(239,68,68,0.2);color:#f87171;padding:1px 7px;border-radius:100px;font-size:0.7rem;">3</span></div>
+    </div>
+    <div class="sidebar-label">Reports</div>
+    <div class="sidebar-section">
+      <div class="sidebar-item"><span class="icon">💰</span> Spend by Category</div>
+      <div class="sidebar-item"><span class="icon">📈</span> Monthly Trends</div>
+      <div class="sidebar-item"><span class="icon">⚠️</span> Review Flags</div>
+    </div>
+    <div class="sidebar-label">Settings</div>
+    <div class="sidebar-section">
+      <div class="sidebar-item"><span class="icon">🔌</span> QuickBooks Sync</div>
+      <div class="sidebar-item"><span class="icon">👤</span> Account</div>
+    </div>
+  </div>
+
+  <!-- Main content -->
+  <div class="main">
+    <div style="margin-bottom:24px;">
+      <h1 style="font-size:1.4rem;font-weight:700;">License Dashboard</h1>
+      <p style="color:#666688;font-size:0.85rem;">v.two · Synced from QuickBooks · Last updated Mar 3, 2026</p>
+    </div>
+
+    <!-- Stats -->
+    <div class="stats">
+      <div class="stat-card highlight">
+        <div class="stat-label">Annual Spend</div>
+        <div class="stat-value purple">$73,527</div>
+        <div class="stat-sub">15 active licenses</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">Monthly Spend</div>
+        <div class="stat-value">$6,127</div>
+        <div class="stat-sub">avg per license: $408</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">Renewing Soon</div>
+        <div class="stat-value" style="color:#fbbf24;">3</div>
+        <div class="stat-sub">within 30 days</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">Flagged for Review</div>
+        <div class="stat-value" style="color:#f87171;">4</div>
+        <div class="stat-sub">potential savings</div>
+      </div>
+    </div>
+
+    <!-- Alerts -->
+    <div class="alerts">
+      <div class="alert red">🚩 QuickBooks Payments ($28.5k/yr) — May be processing fees, not a software license</div>
+      <div class="alert">⚠️ LinkedIn ($16.4k/yr) — Confirm seats &amp; plan type</div>
+      <div class="alert">⚠️ Circle CI ($2.3k/yr) — GitHub Actions may already cover this</div>
+    </div>
+
+    <!-- License table -->
+    <div class="section-title">All Licenses <span>Sorted by annual spend</span></div>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Category</th>
+          <th>Seats</th>
+          <th>Monthly</th>
+          <th>Annual</th>
+          <th>Renewal</th>
+          <th>Status</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><div>QuickBooks Payments</div><div class="flag">🚩 Verify: may be processing fees</div></td>
+          <td><span class="badge cat">Finance</span></td>
+          <td>—</td>
+          <td class="amount">$2,382</td>
+          <td class="amount">$28,580</td>
+          <td>Apr 1, 2026</td>
+          <td><span class="badge review">Review</span></td>
+        </tr>
+        <tr>
+          <td><div>LinkedIn</div><div class="flag">⚠️ Confirm plan — Sales Navigator?</div></td>
+          <td><span class="badge cat">Marketing</span></td>
+          <td>~10</td>
+          <td class="amount">$1,364</td>
+          <td class="amount">$16,374</td>
+          <td>Apr 1, 2026</td>
+          <td><span class="badge review">Review</span></td>
+        </tr>
+        <tr>
+          <td>Slack</td>
+          <td><span class="badge cat">Communication</span></td>
+          <td>~62</td>
+          <td class="amount">$493</td>
+          <td class="amount">$5,920</td>
+          <td>Apr 1, 2026</td>
+          <td><span class="badge active">Active</span></td>
+        </tr>
+        <tr>
+          <td>Google Workspace</td>
+          <td><span class="badge cat">Infrastructure</span></td>
+          <td>~28</td>
+          <td class="amount">$417</td>
+          <td class="amount">$5,009</td>
+          <td>Apr 1, 2026</td>
+          <td><span class="badge active">Active</span></td>
+        </tr>
+        <tr>
+          <td>Amazon / AWS</td>
+          <td><span class="badge cat">Infrastructure</span></td>
+          <td>—</td>
+          <td class="amount">$417</td>
+          <td class="amount">$5,007</td>
+          <td>Apr 1, 2026</td>
+          <td><span class="badge active">Active</span></td>
+        </tr>
+        <tr>
+          <td>Microsoft 365</td>
+          <td><span class="badge cat">Productivity</span></td>
+          <td>~29</td>
+          <td class="amount">$290</td>
+          <td class="amount">$3,485</td>
+          <td>Apr 1, 2026</td>
+          <td><span class="badge active">Active</span></td>
+        </tr>
+        <tr>
+          <td>GitHub</td>
+          <td><span class="badge cat">Dev Tools</span></td>
+          <td>~53</td>
+          <td class="amount">$212</td>
+          <td class="amount">$2,544</td>
+          <td>Dec 1, 2026</td>
+          <td><span class="badge active">Active</span></td>
+        </tr>
+        <tr>
+          <td><div>Circle CI</div><div class="flag">⚠️ Consider GitHub Actions instead</div></td>
+          <td><span class="badge cat">Dev Tools</span></td>
+          <td>—</td>
+          <td class="amount">$192</td>
+          <td class="amount">$2,309</td>
+          <td>Dec 1, 2026</td>
+          <td><span class="badge review">Review</span></td>
+        </tr>
+        <tr>
+          <td>Figma</td>
+          <td><span class="badge cat">Design</span></td>
+          <td>~7</td>
+          <td class="amount">$142</td>
+          <td class="amount">$1,709</td>
+          <td>Apr 1, 2026</td>
+          <td><span class="badge active">Active</span></td>
+        </tr>
+        <tr>
+          <td>DocuSign</td>
+          <td><span class="badge cat">Productivity</span></td>
+          <td>~3</td>
+          <td class="amount">$84</td>
+          <td class="amount">$1,008</td>
+          <td>Dec 1, 2026</td>
+          <td><span class="badge active">Active</span></td>
+        </tr>
+        <tr>
+          <td>Anthropic</td>
+          <td><span class="badge cat">AI</span></td>
+          <td>—</td>
+          <td class="amount">$71</td>
+          <td class="amount">$853</td>
+          <td>Apr 1, 2026</td>
+          <td><span class="badge active">Active</span></td>
+        </tr>
+        <tr>
+          <td>SonarSource</td>
+          <td><span class="badge cat">Dev Tools</span></td>
+          <td>—</td>
+          <td class="amount">$24</td>
+          <td class="amount">$292</td>
+          <td>Dec 1, 2026</td>
+          <td><span class="badge active">Active</span></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<footer>
+  © 2026 v.two · <a href="index.html">Home</a> · <a href="eula.html">EULA</a> · <a href="privacy.html">Privacy Policy</a> · <a href="mailto:chris@vtwo.co">chris@vtwo.co</a>
+</footer>
+
+</body>
+</html>
